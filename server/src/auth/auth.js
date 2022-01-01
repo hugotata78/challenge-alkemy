@@ -14,7 +14,7 @@ const Auth = async (req,res,next)=>{
         const topSecret = 'top secret'
         const key = jwt.verify(token,topSecret)
         console.log(key)
-        const user = await User.findByPk(key.id)
+        const user = await User.findAll({where:{id:key.user.id}})
         if(!user){
             return res.json('User not found')
         }

@@ -2,14 +2,14 @@ const { Record } = require('../db/db')
 
 module.exports = {
     createRecord: async (req,res)=>{
-        const { concept, amount, typeOperation, date } = req.body
+        const { concept, amount, operation, date } = req.body
         const { userId } = req.params
 
         try {
             const record = await Record.create({
                 concept:concept,
                 amount:amount,
-                typeOperation:typeOperation,
+                operation:operation,
                 date:date,
                 userId:userId
             })
@@ -28,6 +28,7 @@ module.exports = {
                     userId:userId
                 }
             })
+            console.log(records)
             res.json(records)
         } catch (error) {
             res.json(error.message)

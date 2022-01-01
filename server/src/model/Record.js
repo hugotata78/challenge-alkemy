@@ -13,7 +13,7 @@ module.exports = (sequelize,type)=>{
             type:type.INTEGER,
             allowNull:false,
         },
-        typeOperation:{
+        operation:{
             type:type.INTEGER,
             allowNull:false,
         },
