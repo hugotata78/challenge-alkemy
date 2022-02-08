@@ -14,7 +14,7 @@ module.exports = (sequelize,type)=>{
             allowNull:false,
         },
         operation:{
-            type:type.INTEGER,
+            type:type.STRING,
             allowNull:false,
         },
         date:{

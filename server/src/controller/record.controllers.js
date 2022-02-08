@@ -1,8 +1,8 @@
-const { Record } = require('../db/db')
+const { Record, Category } = require('../db/db')
 
 module.exports = {
     createRecord: async (req,res)=>{
-        const { concept, amount, operation, date } = req.body
+        const { concept, amount, operation, date, categoryId } = req.body
         const { userId } = req.params
 
         try {
@@ -11,7 +11,8 @@ module.exports = {
                 amount:amount,
                 operation:operation,
                 date:date,
-                userId:userId
+                userId:userId,
+                categoryId:categoryId
             })
             res.json(record)
         } catch (error) {
@@ -26,9 +27,11 @@ module.exports = {
             const records = await Record.findAll({
                 where:{
                     userId:userId
+                },
+                include:{
+                    model:Category,
                 }
             })
-            console.log(records)
             res.json(records)
         } catch (error) {
             res.json(error.message)
@@ -59,6 +62,21 @@ module.exports = {
                 }
             })
             res.json('success')
+        } catch (error) {
+            res.json(error.message)
+        }
+    },
+    filterRecords: async (req,res)=>{
+        const {userId,categoryId} = req.params
+
+        try {
+            const records = await Record.findAll({
+                where:{
+                    userId:userId,
+                    categoryId:categoryId
+                }
+            })
+            res.json(records)
         } catch (error) {
             res.json(error.message)
         }
