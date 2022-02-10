@@ -23,7 +23,6 @@ const NavBar = () => {
     dispatch(categoryActions())
   }, [dispatch])
 
-  console.log(window.location.pathname)
   return (
 
     <nav className="navbar navbar-expand-lg navbar-light bg-primary">
@@ -50,7 +49,7 @@ const NavBar = () => {
                     {
                       categories && categories.map(category => {
                         return (
-                          <li><Link className="dropdown-item" to={`/category/${category.id}`} >{category.name}</Link></li>
+                          <li key={category.id}><Link className="dropdown-item" to={`/category/${category.id}`} >{category.name}</Link></li>
                         )
                       })
                     }

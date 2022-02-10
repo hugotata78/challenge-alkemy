@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const CATEGORIES = 'CATEGORIES'
 
+
 export const categoryActions = ()=>{
     return async (dispatch)=>{
         try {

@@ -37,6 +37,7 @@ export const userReducer = (state=initialState,action)=>{
                 logout:null,
                 error:action.payload
             }
+        
         default:
             return state
     }

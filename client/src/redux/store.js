@@ -2,8 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducers } from './reducers/rootReducer';
 import thunk from 'redux-thunk'
-import { createUserAction, loginAction, logoutAction, restoreSession } from './actions/usersActions';
-import { createRecordAction, deleteRecordAction, getRecordsAction, updateRecordAction } from './actions/recordsActions';
+import { restoreSession } from './actions/usersActions';
 
 export const store = createStore(
   rootReducers,
@@ -13,4 +12,3 @@ export const store = createStore(
   )
 );
 store.dispatch(restoreSession())
-//store.dispatch(logoutAction('user12345@gmail.com',2))

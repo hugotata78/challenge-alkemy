@@ -50,14 +50,16 @@ export const getRecordsAction = (userId,token)=>{
     }
 }
 
-export const updateRecordAction = (concept,amount,operation,date,id,token)=>{
+export const updateRecordAction = (concept,amount,operation,date,categoryId,id,token)=>{
     return async (dispatch)=>{
+        console.log(id)
         try {
             const response = await axios.put(`${url}/update/${id}`,{
                 concept,
                 amount,
                 operation,
-                date
+                date,
+                categoryId
             },{
                 headers:{
                     'Authorization':`Bearer ${token}`

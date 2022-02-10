@@ -40,8 +40,16 @@ module.exports = {
 
     updateRecord: async (req,res)=>{
         const { id } = req.params
+        const { concept, amount, operation, date, userId, categoryId } = req.body
         try {
-            await Record.update(req.body,{
+            await Record.update({
+                concept:concept,
+                amount:amount,
+                operation:operation,
+                date:date,
+                userId:userId,
+                categoryId:categoryId
+            },{
                 where:{
                     id:id
                 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createUserAction } from '../redux/actions/usersActions';
 import { useForm } from 'react-hook-form'
 
@@ -10,7 +10,6 @@ export const Register = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.userReducer.user)
     const error = useSelector(state => state.userReducer.error)
-    const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     // const [username,setUsername] = useState('')
     // const [email, setEmail] = useState('')

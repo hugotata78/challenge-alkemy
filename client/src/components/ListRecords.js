@@ -5,8 +5,8 @@ export const ListRecords = ({ records }) => {
 
     return (
 
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered">
+        <div className="table-responsive">
+            <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -21,7 +21,7 @@ export const ListRecords = ({ records }) => {
                     {
                         records && records.map((record, index) => {
                             return (
-                                <tr>
+                                <tr key={record.id}>
                                     <td>{index + 1}</td>
                                     <td>{record.concept}</td>
                                     <td>{record.amount}</td>
