@@ -38,6 +38,25 @@ module.exports = {
         }
     },
 
+    getRecord: async (req, res)=>{
+        const { id } = req.params
+
+        try {
+            const record = await Record.findOne({
+                where:{
+                    id:id
+                },
+                include:{
+                    model:Category,
+                }
+            })
+            res.json(record)
+        } catch (error) {
+            res.json(error.message)
+        }
+    },
+
+
     updateRecord: async (req,res)=>{
         const { id } = req.params
         const { concept, amount, operation, date, userId, categoryId } = req.body
@@ -82,9 +101,17 @@ module.exports = {
                 where:{
                     userId:userId,
                     categoryId:categoryId
+                },
+                include:{
+                    model:Category,
                 }
             })
-            res.json(records)
+            const category = await Category.findOne({
+                where:{
+                    id:categoryId
+                }
+            })
+            res.json({category:category,data:records})
         } catch (error) {
             res.json(error.message)
         }

@@ -38,9 +38,6 @@ const NavBar = () => {
                 <li className='nav-item'>
                   <Link className='nav-link' to='/record/create'>Agregar registro</Link>
                 </li>
-                <li className='nav-item'>
-                  <Link className='nav-link' to='/record/admin'>Administrar registros</Link>
-                </li>
                 <li className="nav-item dropdown">
                   <Link className="nav-link dropdown-toggle" to={window.location.pathname} id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Filtrar por categoria

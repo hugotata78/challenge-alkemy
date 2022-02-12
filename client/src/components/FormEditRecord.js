@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form'
-import { resetState, updateRecordAction } from '../redux/actions/recordsActions';
+import { getRecordAction, getRecordsAction, resetState, updateRecordAction } from '../redux/actions/recordsActions';
+import { useNavigate, useParams } from "react-router-dom"
 
-export const FormEditRecord = ({ record }) => {
+export const FormEditRecord = () => {
 
     const dispatch = useDispatch()
+    const record = useSelector(state => state.recordReducer.record)
     const session = useSelector(state => state.userReducer.session)
     const categories = useSelector(state => state.categoryReducer.categories)
     const result = useSelector(state => state.recordReducer.update_record)
     const error = useSelector(state => state.recordReducer.error)
     const { register, formState: { errors }, handleSubmit, setValue } = useForm();
-    setValue('concept',record.concept)
-    setValue('amount',record.amount)
-    setValue('operation',record.operation)
-    setValue('date',record.date && record.date.split('T')[0])
+    const { id } = useParams()
+    const navigate = useNavigate()
+
+    setValue('concept', record && record.concept)
+    setValue('amount', record && record.amount)
+    setValue('operation', record && record.operation)
+    setValue('date', record && record.date && record.date.split('T')[0])
+    setValue('category', record && record.categoryId)
 
     const handleOnSubmit = (data, e) => {
         const { concept, amount, operation, date, category } = data
@@ -22,16 +28,19 @@ export const FormEditRecord = ({ record }) => {
         console.log(record)
         const { token } = session
         dispatch(updateRecordAction(concept, amount, operation, date, category, id, token))
-        e.target.reset();
     }
 
-    const resetData = (e)=>{
+    const resetData = (e) => {
         e.preventDefault()
         dispatch(resetState())
-        
+        navigate('/')
     }
 
-    
+    useEffect(() => {
+        dispatch(getRecordAction(id, session.token))
+    }, [dispatch, id, session.token])
+
+
     return (
         <div className='container d-flex justify-content-center m-4'>
             <form className='mt-4 p-4 border border-primary rounded'
@@ -108,11 +117,8 @@ export const FormEditRecord = ({ record }) => {
                         <option value="">Seleccionar categoria</option>
                         {
                             categories && categories.map(category => {
-                                let id = record.category ? record.category.id : null 
+
                                 return (
-                                    category.id === id ? 
-                                    <option selected='selected' value={category.id} key={category.id}>{category.name}</option>
-                                    :
                                     <option value={category.id} key={category.id}>{category.name}</option>
                                 )
                             })

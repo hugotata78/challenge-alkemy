@@ -1,11 +1,13 @@
-import { CREATE_RECORD, DELETE_RECORD, ERROR, GET_RECORDS, RESET, UPDATE_RECORD } from "../actions/recordsActions"
+import { CREATE_RECORD, DELETE_RECORD, ERROR, FILTER, GET_RECORD, GET_RECORDS, RESET, UPDATE_RECORD } from "../actions/recordsActions"
 
 const initialState = {
     create_record:null,
     get_records:null,
+    record:null,
     update_record:null,
     delete_record:null,
-    error:null
+    error:null,
+    filter:null
 }
 
 export const recordReducer = (state=initialState,action)=>{
@@ -20,6 +22,11 @@ export const recordReducer = (state=initialState,action)=>{
                 ...state,
                 get_records:action.payload
             }
+        case GET_RECORD:
+            return{
+                ...state,
+                record:action.payload
+            }
         case UPDATE_RECORD:
             return{
                 ...state,
@@ -29,6 +36,11 @@ export const recordReducer = (state=initialState,action)=>{
             return{
                 ...state,
                 delete_record:action.payload
+            }
+        case FILTER:
+            return{
+                ...state,
+                filter:action.payload
             }
         case ERROR:
             return{
