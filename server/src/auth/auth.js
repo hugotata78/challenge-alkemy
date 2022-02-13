@@ -15,7 +15,15 @@ const Auth = async (req, res, next) => {
         const topSecret = 'top secret'
         const key = jwt.verify(token, topSecret, async (err, decoded) => {
             if (err) {
-                console.log(err)
+                if(req.session){
+                    req.session.destroy((err)=>{
+                        if(err){
+                            res.json('Unable to log out')
+                        }else{
+                            res.json({status:'Ok',results:'Logout successful'})
+                        }
+                    })
+                }
             } else {
                 const user = await User.findAll({ where: { id: decoded.user.id } })
                 if (!user) {
